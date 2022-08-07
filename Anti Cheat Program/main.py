@@ -137,14 +137,12 @@ class MainWindow(QMainWindow):
         dialog = self.create_dialog()
         if dialog.exec():
             file = dialog.selectedFiles()
-            if self.widgets.select_hash_type_1.currentText() == "MD5 Hash":
-                self._hash_dialog(file[0], hashlib.md5())
-
-            if self.widgets.select_hash_type_1.currentText() == "SHA-1 Hash":
-                self._hash_dialog(file[0], hashlib.sha1())
-    
-            if self.widgets.select_hash_type_1.currentText() == "SHA-256 Hash":
-                self._hash_dialog(file[0], hashlib.sha256())
+            hash_type_map = {
+                "MD5 Hash": hashlib.md5(),
+                "SHA-1 Hash": hashlib.sha1(),
+                "SHA-256 Hash": hashlib.sha256()}
+            hash_text: str = self.widgets.select_hash_type_1.currentText()
+            self._hash_dialog(file[0], hash_type_map[hash_text])
 
     # // Function to Upload logs to discord
     def upload_logs_to_discord_dialog(self):
