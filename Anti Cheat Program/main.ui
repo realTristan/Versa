@@ -34,7 +34,6 @@
     <string notr="true">/* /////////////////////////////////////////////////////////////////////////////////////////////////
 
 SET APP STYLESHEET - FULL STYLES HERE
-DARK THEME - DRACULA COLOR BASED
 
 ///////////////////////////////////////////////////////////////////////////////////////////////// */
 
@@ -70,12 +69,6 @@ Bg App */
 Left Menu */
 #leftMenuBg {	
 	background-color: rgb(33, 37, 43);
-}
-#topLogo {
-	background-color: rgb(33, 37, 43);
-	background-image: url(:/images/images/images/PyDracula.png);
-	background-position: centered;
-	background-repeat: no-repeat;
 }
 #titleLeftApp { font: 63 12pt &quot;Segoe UI Semibold&quot;; }
 #titleLeftDescription { font: 8pt &quot;Segoe UI&quot;; color: rgb(255, 0, 78); }
@@ -2586,7 +2579,6 @@ background-repeat: no-repeat;</string>
  </widget>
  <resources>
   <include location="resources.qrc"/>
-  <include location="../Versa GUI 2/Drac GUI 2/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
