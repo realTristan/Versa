@@ -601,10 +601,9 @@ class Ui_MainWindow(object):
         self.label_5 = QLabel(self.topLogoInfo)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setGeometry(QRect(10, -1, 41, 51))
-        self.label_5.setPixmap(QPixmap(u"images/images/Untitled-3.png"))
+        self.label_5.setPixmap(QPixmap(u"images/images/versa_logo.png"))
 
         self.verticalLayout_3.addWidget(self.topLogoInfo)
-
         self.leftMenuFrame = QFrame(self.leftMenuBg)
         self.leftMenuFrame.setObjectName(u"leftMenuFrame")
         self.leftMenuFrame.setFrameShape(QFrame.NoFrame)
@@ -659,7 +658,6 @@ class Ui_MainWindow(object):
         self.btn_home.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-home.png);")
 
         self.verticalLayout_8.addWidget(self.btn_home)
-
         self.btn_widgets = QPushButton(self.topMenu)
         self.btn_widgets.setObjectName(u"btn_widgets")
         sizePolicy.setHeightForWidth(self.btn_widgets.sizePolicy().hasHeightForWidth())
@@ -680,7 +678,7 @@ class Ui_MainWindow(object):
         self.btn_new.setFont(font)
         self.btn_new.setCursor(QCursor(Qt.PointingHandCursor))
         self.btn_new.setLayoutDirection(Qt.LeftToRight)
-        self.btn_new.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-settings.png);")
+        self.btn_new.setStyleSheet(u"background-image: url(:/icons/images/icons/icon_settings.png);")
 
         self.verticalLayout_8.addWidget(self.btn_new)
 
@@ -778,45 +776,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_11.setSpacing(0)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
         self.verticalLayout_11.setContentsMargins(0, 0, 0, 0)
-        self.btn_share = QPushButton(self.extraTopMenu)
-        self.btn_share.setObjectName(u"btn_share")
-        sizePolicy.setHeightForWidth(self.btn_share.sizePolicy().hasHeightForWidth())
-        self.btn_share.setSizePolicy(sizePolicy)
-        self.btn_share.setMinimumSize(QSize(0, 45))
-        self.btn_share.setFont(font)
-        self.btn_share.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_share.setLayoutDirection(Qt.LeftToRight)
-        self.btn_share.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-share-boxed.png);")
-
-        self.verticalLayout_11.addWidget(self.btn_share)
-
-        self.btn_adjustments = QPushButton(self.extraTopMenu)
-        self.btn_adjustments.setObjectName(u"btn_adjustments")
-        sizePolicy.setHeightForWidth(self.btn_adjustments.sizePolicy().hasHeightForWidth())
-        self.btn_adjustments.setSizePolicy(sizePolicy)
-        self.btn_adjustments.setMinimumSize(QSize(0, 45))
-        self.btn_adjustments.setFont(font)
-        self.btn_adjustments.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_adjustments.setLayoutDirection(Qt.LeftToRight)
-        self.btn_adjustments.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-equalizer.png);")
-
-        self.verticalLayout_11.addWidget(self.btn_adjustments)
-
-        self.btn_more = QPushButton(self.extraTopMenu)
-        self.btn_more.setObjectName(u"btn_more")
-        sizePolicy.setHeightForWidth(self.btn_more.sizePolicy().hasHeightForWidth())
-        self.btn_more.setSizePolicy(sizePolicy)
-        self.btn_more.setMinimumSize(QSize(0, 45))
-        self.btn_more.setFont(font)
-        self.btn_more.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_more.setLayoutDirection(Qt.LeftToRight)
-        self.btn_more.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-layers.png);")
-
-        self.verticalLayout_11.addWidget(self.btn_more)
-
-
         self.verticalLayout_12.addWidget(self.extraTopMenu, 0, Qt.AlignTop)
-
         self.extraCenter = QFrame(self.extraContent)
         self.extraCenter.setObjectName(u"extraCenter")
         self.extraCenter.setFrameShape(QFrame.NoFrame)
@@ -831,21 +791,14 @@ class Ui_MainWindow(object):
         self.textEdit.setReadOnly(True)
 
         self.verticalLayout_10.addWidget(self.textEdit)
-
-
         self.verticalLayout_12.addWidget(self.extraCenter)
-
         self.extraBottom = QFrame(self.extraContent)
         self.extraBottom.setObjectName(u"extraBottom")
         self.extraBottom.setFrameShape(QFrame.NoFrame)
         self.extraBottom.setFrameShadow(QFrame.Raised)
 
         self.verticalLayout_12.addWidget(self.extraBottom)
-
-
         self.extraColumLayout.addWidget(self.extraContent)
-
-
         self.appLayout.addWidget(self.extraLeftBox)
 
         self.contentBox = QFrame(self.bgApp)
@@ -1006,7 +959,7 @@ class Ui_MainWindow(object):
         self.button_start_1.setCursor(QCursor(Qt.PointingHandCursor))
         self.button_start_1.setStyleSheet(u"background-color: rgb(52, 59, 72);")
         icon3 = QIcon()
-        icon3.addFile(u"images/icons/cil-media-play.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon3.addFile(u"images/icons/icon_play.png", QSize(), QIcon.Normal, QIcon.Off)
         self.button_start_1.setIcon(icon3)
         self.ac_logs_1 = QPlainTextEdit(self.widget)
         self.ac_logs_1.setObjectName(u"ac_logs_1")
@@ -1022,7 +975,7 @@ class Ui_MainWindow(object):
         self.open_log_folder_1.setCursor(QCursor(Qt.PointingHandCursor))
         self.open_log_folder_1.setStyleSheet(u"background-color: rgb(52, 59, 72);")
         icon4 = QIcon()
-        icon4.addFile(u"images/icons/cil-folder-open.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon4.addFile(u"images/icons/icon_folder.png", QSize(), QIcon.Normal, QIcon.Off)
         self.open_log_folder_1.setIcon(icon4)
         self.button_stop_1 = QPushButton(self.widget)
         self.button_stop_1.setObjectName(u"button_stop_1")
@@ -1032,7 +985,7 @@ class Ui_MainWindow(object):
         self.button_stop_1.setCursor(QCursor(Qt.PointingHandCursor))
         self.button_stop_1.setStyleSheet(u"background-color: rgb(52, 59, 72);")
         icon5 = QIcon()
-        icon5.addFile(u"images/icons/cil-media-stop.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon5.addFile(u"images/icons/icon_stop.png", QSize(), QIcon.Normal, QIcon.Off)
         self.button_stop_1.setIcon(icon5)
         self.enter_disc_webhook_1 = QPlainTextEdit(self.widget)
         self.enter_disc_webhook_1.setObjectName(u"enter_disc_webhook_1")
@@ -1064,7 +1017,7 @@ class Ui_MainWindow(object):
         self.button_start_2.setCursor(QCursor(Qt.PointingHandCursor))
         self.button_start_2.setStyleSheet(u"background-color: rgb(52, 59, 72);")
         icon6 = QIcon()
-        icon6.addFile(u"images/icons/cil-code.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon6.addFile(u"images/icons/icon_code.png", QSize(), QIcon.Normal, QIcon.Off)
         self.button_start_2.setIcon(icon6)
         self.enter_disc_webhook_3 = QPlainTextEdit(self.widget_2)
         self.enter_disc_webhook_3.setObjectName(u"enter_disc_webhook_3")
@@ -1157,54 +1110,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_14.setSpacing(0)
         self.verticalLayout_14.setObjectName(u"verticalLayout_14")
         self.verticalLayout_14.setContentsMargins(0, 0, 0, 0)
-        self.btn_message = QPushButton(self.topMenus)
-        self.btn_message.setObjectName(u"btn_message")
-        sizePolicy.setHeightForWidth(self.btn_message.sizePolicy().hasHeightForWidth())
-        self.btn_message.setSizePolicy(sizePolicy)
-        self.btn_message.setMinimumSize(QSize(0, 45))
-        self.btn_message.setFont(font)
-        self.btn_message.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_message.setLayoutDirection(Qt.LeftToRight)
-        self.btn_message.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-envelope-open.png);")
-
-        self.verticalLayout_14.addWidget(self.btn_message)
-
-        self.btn_print = QPushButton(self.topMenus)
-        self.btn_print.setObjectName(u"btn_print")
-        sizePolicy.setHeightForWidth(self.btn_print.sizePolicy().hasHeightForWidth())
-        self.btn_print.setSizePolicy(sizePolicy)
-        self.btn_print.setMinimumSize(QSize(0, 45))
-        self.btn_print.setFont(font)
-        self.btn_print.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_print.setLayoutDirection(Qt.LeftToRight)
-        self.btn_print.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-print.png);")
-
-        self.verticalLayout_14.addWidget(self.btn_print)
-
-        self.btn_logout = QPushButton(self.topMenus)
-        self.btn_logout.setObjectName(u"btn_logout")
-        sizePolicy.setHeightForWidth(self.btn_logout.sizePolicy().hasHeightForWidth())
-        self.btn_logout.setSizePolicy(sizePolicy)
-        self.btn_logout.setMinimumSize(QSize(0, 45))
-        self.btn_logout.setFont(font)
-        self.btn_logout.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_logout.setLayoutDirection(Qt.LeftToRight)
-        self.btn_logout.setStyleSheet(u"background-image: url(:/icons/images/icons/cil-account-logout.png);")
-
-        self.verticalLayout_14.addWidget(self.btn_logout)
-
-
         self.verticalLayout_13.addWidget(self.topMenus, 0, Qt.AlignTop)
-
-
         self.verticalLayout_7.addWidget(self.contentSettings)
-
-
         self.horizontalLayout_4.addWidget(self.extraRightBox)
-
-
         self.verticalLayout_6.addWidget(self.content)
-
         self.bottomBar = QFrame(self.contentBottom)
         self.bottomBar.setObjectName(u"bottomBar")
         self.bottomBar.setMinimumSize(QSize(0, 22))
@@ -1226,13 +1135,11 @@ class Ui_MainWindow(object):
         self.creditsLabel.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.horizontalLayout_5.addWidget(self.creditsLabel)
-
         self.version = QLabel(self.bottomBar)
         self.version.setObjectName(u"version")
         self.version.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
         self.horizontalLayout_5.addWidget(self.version)
-
         self.frame_size_grip = QFrame(self.bottomBar)
         self.frame_size_grip.setObjectName(u"frame_size_grip")
         self.frame_size_grip.setMinimumSize(QSize(20, 0))
@@ -1241,26 +1148,14 @@ class Ui_MainWindow(object):
         self.frame_size_grip.setFrameShadow(QFrame.Raised)
 
         self.horizontalLayout_5.addWidget(self.frame_size_grip)
-
-
         self.verticalLayout_6.addWidget(self.bottomBar)
-
-
         self.verticalLayout_2.addWidget(self.contentBottom)
-
-
         self.appLayout.addWidget(self.contentBox)
-
-
         self.appMargins.addWidget(self.bgApp)
-
+        
         MainWindow.setCentralWidget(self.styleSheet)
-
         self.retranslateUi(MainWindow)
-
         self.stackedWidget.setCurrentIndex(2)
-
-
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
@@ -1278,10 +1173,7 @@ class Ui_MainWindow(object):
         self.extraCloseColumnBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Close left box", None))
 #endif // QT_CONFIG(tooltip)
         self.extraCloseColumnBtn.setText("")
-        self.btn_share.setText(QCoreApplication.translate("MainWindow", u"Share", None))
-        self.btn_adjustments.setText(QCoreApplication.translate("MainWindow", u"Adjustments", None))
-        self.btn_more.setText(QCoreApplication.translate("MainWindow", u"More", None))
-        self.titleRightInfo.setText(QCoreApplication.translate("MainWindow", u"Versa AC - Advanced Gaming Anti Cheat", None))
+        self.titleRightInfo.setText(QCoreApplication.translate("MainWindow", u"Versa - Advanced Gaming Anti Cheat", None))
 #if QT_CONFIG(tooltip)
         self.minimizeAppBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Minimize", None))
 #endif // QT_CONFIG(tooltip)
@@ -1319,9 +1211,6 @@ class Ui_MainWindow(object):
         self.select_hash_file_1.setText(QCoreApplication.translate("MainWindow", u"Select File", None))
         self.labelVersion_3.setText(QCoreApplication.translate("MainWindow", u"File Hash Integrity Checker", None))
         self.labelVersion_4.setText(QCoreApplication.translate("MainWindow", u"VAC Key Generator", None))
-        self.btn_message.setText(QCoreApplication.translate("MainWindow", u"Message", None))
-        self.btn_print.setText(QCoreApplication.translate("MainWindow", u"Print", None))
-        self.btn_logout.setText(QCoreApplication.translate("MainWindow", u"Logout", None))
         self.creditsLabel.setText(QCoreApplication.translate("MainWindow", u"Coded by: tristan#2230", None))
         self.version.setText(QCoreApplication.translate("MainWindow", u"v1.0.1", None))
     # retranslateUi
