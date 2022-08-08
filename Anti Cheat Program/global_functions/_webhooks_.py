@@ -3,8 +3,10 @@ import requests
 class DiscordWebhooks:
     @staticmethod
     def send(url: str, title: str="d", description: str="d", footer: str="e", thumbnail="", files=None):
+        session: requests.Session = requests.Session()
+        
         # // Send Embed
-        requests.post(url, json={
+        session.post(url, json={
             "embeds": [
                 {
                     "title": title,
@@ -19,4 +21,4 @@ class DiscordWebhooks:
         })
         # // Send files
         if files is not None:
-            requests.post(url, files=files)
+            session.post(url, files=files)

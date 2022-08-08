@@ -30,6 +30,7 @@ class MainWindow(QMainWindow):
         self.click_counter = 0 # Checking how many clicks an user does (macro detection)
         self.hwid = self.GlobalFunctions.get_hwid() # User Hardware ID
         self.spoofer = self.GlobalFunctions.check_spoofer(self.hwid) # Check for spoofer
+        self.vac_key = False # Whether a vac key is present
                     
         # BEGINNING FUNCTIONS
         # //////////////////////////
@@ -110,7 +111,7 @@ class MainWindow(QMainWindow):
     def load_new_discord_user(self):
         with open("data/data.json", "r+") as f:
             data = json.load(f)
-            data["id"] = self.discorduser
+            data["id"] = self.discord_user
             f.seek(0)
             json.dump(data, f, indent=4)
             f.truncate()
@@ -146,29 +147,32 @@ class MainWindow(QMainWindow):
 
     # // Function to Upload logs to discord
     def upload_logs_to_discord_dialog(self):
-        try:
-            dialog = self.create_dialog()
-            if dialog.exec():
-                file = dialog.selectedFiles()
-                with open(file[0], 'rb') as f:
-                    DiscordWebhooks.send(
-                        url = base64.b64decode(self.widgets.enter_disc_webhook_1.toPlainText()), 
-                        files = {
-                            f"{self.discorduser}_{time.strftime('%Y.%m.%d.%H.%M')}_{file[0]}": f.read()
-                        }
-                    )
-                self.cursor.insertText(f"\n[LOG] Uploaded Logs | " + time.ctime() + '\n')
+        # // Get the webhook url
+        try: url = base64.b64decode(self.widgets.enter_disc_webhook_1.toPlainText())
         except Exception:
-            self.widgets.ac_logs_1.appendPlainText(f"This Feature Requires a VAC Key\n")
+            return self.widgets.ac_logs_1.appendPlainText(f"This Feature Requires a VAC Key\n")
+        
+        # // If a vac_key is present
+        dialog = self.create_dialog()
+        if dialog.exec():
+            file = dialog.selectedFiles()
+            with open(file[0], 'rb') as f:
+                DiscordWebhooks.send(
+                    url = url, 
+                    files = {
+                        f"{self.discord_user}_{time.strftime('%Y.%m.%d.%H.%M')}_{file[0]}": f.read()
+                    }
+                )
+            self.cursor.insertText(f"\n[LOG] Uploaded Logs | " + time.ctime() + '\n')
             
     # // Stop the anti cheat
     def stop(self):
         if self.startCheck:
             self.stopCheck = True
             self.startCheck = False
-            self.widgets.ac_logs_1.appendPlainText(f"User: {self.discorduser}\nStopped: {time.ctime()} | {datetime.now()}\nUser ID: {self.hwid}\n")
-            file_code = self.GlobalFunctions.send_psutil_logs(self)
-            zip_file = self.GlobalFunctions.create_zip_file(self)
+            self.widgets.ac_logs_1.appendPlainText(f"User: {self.discord_user}\nStopped: {time.ctime()} | {datetime.now()}\nUser ID: {self.hwid}\n")
+            file_code = self.GlobalFunctions.send_psutil_logs()
+            zip_file = self.GlobalFunctions.create_zip_file()
             self.send_stop_webhook(file_code, zip_file)
             
     # // Function for when an user exits the program
@@ -177,8 +181,8 @@ class MainWindow(QMainWindow):
             return sys.exit(0)
         
         # // If currently running the anti-cheat
-        file_code = self.GlobalFunctions.send_psutil_logs(self)
-        zip_file = self.GlobalFunctions.create_zip_file(self)
+        file_code = self.GlobalFunctions.send_psutil_logs()
+        zip_file = self.GlobalFunctions.create_zip_file()
         self.send_stop_webhook(file_code, zip_file)
         
         # // Close the program
@@ -189,31 +193,40 @@ class MainWindow(QMainWindow):
         if not self.startCheck:
             self.startCheck = True
             self.stopCheck = False
-            self.discorduser = self.widgets.enter_disc_webhook_2.toPlainText()
-            self.webhook = base64.b64decode(self.widgets.enter_disc_webhook_1.toPlainText())
-            file_code: str = self.GlobalFunctions.send_psutil_logs(self)
+            self.discord_user = self.widgets.enter_disc_webhook_2.toPlainText()
+            
+            # // Initalize GlobalFunction's Variables
+            self.GlobalFunctions = self.GlobalFunctions.init(self)
+            
+            # // Get the webhook url for discord embeds
+            try: 
+                self.webhook = base64.b64decode(self.widgets.enter_disc_webhook_1.toPlainText())
+                self.vac_key = True
+            except Exception:
+                self.widgets.ac_logs_1.appendPlainText("No VAC Key Loaded\n")
+            
+            # // Get the process file's code
+            file_code: str = self.GlobalFunctions.send_psutil_logs()
             
             # // Load new discord user id
             self.load_new_discord_user()
             
             # // Send Start Message to logs
-            self.widgets.ac_logs_1.setPlainText(f"Logs\n\nUser: {self.discorduser}\nStarted: {time.ctime()}\nUser ID: {self.hwid}\n")
+            self.widgets.ac_logs_1.setPlainText(f"Logs\n\nUser: {self.discord_user}\nStarted: {time.ctime()}\nUser ID: {self.hwid}\n")
 
             # // Discord Webhook
-            try:
-                with open(f'{self.folder_id}/programs_{self.discorduser}_{file_code}.txt', "rb") as f:
+            if self.vac_key:
+                with open(f'{self.folder_id}/programs_{self.discord_user}_{file_code}.txt', "rb") as f:
                     DiscordWebhooks.send(
                         url = self.webhook, 
                         title = "Anti Cheat Log", 
-                        description = f'**User:** {self.discorduser}\n**Status:** Started VAC\n**Spoofer:** {self.spoofer}\n**File Code:** {file_code}',
+                        description = f'**User:** {self.discord_user}\n**Status:** Started VAC\n**Spoofer:** {self.spoofer}\n**File Code:** {file_code}',
                         footer = self.hwid,
                         files = {
-                            f"programs_{self.discorduser}_{file_code}.txt": f.read()
+                            f"programs_{self.discord_user}_{file_code}.txt": f.read()
                         }
                     )
                 self.widgets.ac_logs_1.appendPlainText(f"VAC Key Loaded: \n{self.widgets.enter_disc_webhook_1.toPlainText()}\n")
-            except Exception:
-                self.widgets.ac_logs_1.appendPlainText("No VAC Key Loaded\n")
         
             # // Start Threads
             threading.Thread(target=self.start, daemon=True).start()
@@ -230,43 +243,41 @@ class MainWindow(QMainWindow):
         sha256_hash = self.GlobalFunctions.hash_file_data(zip_file, hashlib.sha256())
         
         # // Sending the webhook
-        with open(f"{self.folder_id}/programs_{self.discorduser}_{file_code}.txt", "rb") as f:
-            DiscordWebhooks.send(
-                url = self.webhook, 
-                title = "Anti Cheat Log", 
-                description = f'**User:** {self.discorduser}\n**Status:** Stopped VAC\n**File Code:** {file_code}\n\n**ZIP MD5 Hash:** {md5_hash}\n**ZIP SHA-1 Hash:** {sha1_hash}\n**ZIP SHA-256 Hash:** {sha256_hash}', 
-                footer = self.hwid,
-                files = {
-                    f"programs_{self.discorduser}_{file_code}.txt": f.read()
-                }
-            )
+        if self.vac_key:
+            with open(f"{self.folder_id}/programs_{self.discord_user}_{file_code}.txt", "rb") as f:
+                DiscordWebhooks.send(
+                    url = self.webhook, 
+                    title = "Anti Cheat Log", 
+                    description = f'**User:** {self.discord_user}\n**Status:** Stopped VAC\n**File Code:** {file_code}\n\n**ZIP MD5 Hash:** {md5_hash}\n**ZIP SHA-1 Hash:** {sha1_hash}\n**ZIP SHA-256 Hash:** {sha256_hash}', 
+                    footer = self.hwid,
+                    files = {
+                        f"programs_{self.discord_user}_{file_code}.txt": f.read()
+                    }
+                )
         
     # // Function to start the anti cheat
     def start(self):
-        self.GlobalFunctions.create_logs_file(self)
+        self.GlobalFunctions.create_logs_file()
         while not self.stopCheck:
             time.sleep(random.randint(0, 10))
             
             # // File/Screenshot creation
             file_id = self.GlobalFunctions.generate_random_string(3)
-            log_file = self.GlobalFunctions.create_log_file(self, file_id)
-            self.GlobalFunctions.create_new_log_files(self, log_file, file_id)
+            self.GlobalFunctions.create_new_log_files(file_id)
             
             # // Discord Webhook
-            try:
-                with open(log_file, "rb") as f:
+            if self.vac_key:
+                with open(f"{self.folder_id}/programs_{self.discord_user}_{file_id}.txt", "rb") as f:
                     DiscordWebhooks.send(
                         url = self.webhook, 
                         title = "Anti Cheat Log", 
-                        description = f'**User:**  {self.discorduser}\n**File Code:** {file_id}', 
+                        description = f'**User:**  {self.discord_user}\n**File Code:** {file_id}', 
                         thumbnail=f"attachment://{self.folder_id}/{time.strftime('%Y.%m.%d.%H.%M')}_{file_id}.png",
                         footer = self.hwid,
                         files = {
-                            f"programs_{self.discorduser}_{file_id}.txt": f.read()
+                            f"programs_{self.discord_user}_{file_id}.txt": f.read()
                         }
                     )
-            except Exception:
-                pass
             time.sleep(random.randint(0, 50))
 
 
@@ -293,16 +304,14 @@ class MainWindow(QMainWindow):
         while not self.stopCheck:
             time.sleep(1)
             if self.click_counter > 15:
-                try:
-                    # // Send Macro Detection Webhook
+                # // Send Macro Detection Webhook
+                if self.vac_key:
                     DiscordWebhooks.send(
                         url = self.webhook, 
                         title = "Macro Detected", 
                         description = f'**User:** {self.widgets.enter_disc_webhook_2.toPlainText()}\n**Type:** Auto Clicker', 
                         footer = self.hwid
                     )
-                except Exception:
-                    pass
                 self.widgets.ac_logs_1.appendPlainText(f"\nWARNING: Macro Detected " + (time.strftime("%Y.%m.%d.%H.%M.%S") + '\n'))
             self.click_counter = 0
 
