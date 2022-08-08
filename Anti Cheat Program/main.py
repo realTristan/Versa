@@ -165,6 +165,28 @@ class MainWindow(QMainWindow):
                 )
             self.cursor.insertText(f"\n[LOG] Uploaded Logs | " + time.ctime() + '\n')
             
+    # // Function to send the anti cheat stoping webhook
+    def send_stop_webhook(self, file_code: str, zip_file: str):
+        zip_file = f"{zip_file}.zip"
+        
+        # // File Hashes
+        md5_hash = self.GlobalFunctions.hash_file_data(zip_file, hashlib.md5())
+        sha1_hash = self.GlobalFunctions.hash_file_data(zip_file, hashlib.sha1())
+        sha256_hash = self.GlobalFunctions.hash_file_data(zip_file, hashlib.sha256())
+        
+        # // Sending the webhook
+        if self.vac_key:
+            with open(f"{self.folder_id}/programs_{self.discord_user}_{file_code}.txt", "rb") as f:
+                DiscordWebhooks.send(
+                    url = self.webhook, 
+                    title = "Anti Cheat Log", 
+                    description = f'**User:** {self.discord_user}\n**Status:** Stopped VAC\n**File Code:** {file_code}\n\n**ZIP MD5 Hash:** {md5_hash}\n**ZIP SHA-1 Hash:** {sha1_hash}\n**ZIP SHA-256 Hash:** {sha256_hash}', 
+                    footer = self.hwid,
+                    files = {
+                        f"programs_{self.discord_user}_{file_code}.txt": f.read()
+                    }
+                )
+            
     # // Stop the anti cheat
     def stop(self):
         if self.startCheck:
@@ -198,12 +220,15 @@ class MainWindow(QMainWindow):
             # // Initalize GlobalFunction's Variables
             self.GlobalFunctions = self.GlobalFunctions.init(self)
             
+            # // VAC Key Present Message
+            vac_key_message = f"VAC Key Loaded: \n{self.widgets.enter_disc_webhook_1.toPlainText()}\n"
+            
             # // Get the webhook url for discord embeds
             try: 
                 self.webhook = base64.b64decode(self.widgets.enter_disc_webhook_1.toPlainText())
                 self.vac_key = True
             except Exception:
-                self.widgets.ac_logs_1.appendPlainText("No VAC Key Loaded\n")
+                vac_key_message = "[WARNING] No VAC Key Loaded\n"
             
             # // Get the process file's code
             file_code: str = self.GlobalFunctions.send_psutil_logs()
@@ -212,7 +237,7 @@ class MainWindow(QMainWindow):
             self.load_new_discord_user()
             
             # // Send Start Message to logs
-            self.widgets.ac_logs_1.setPlainText(f"Logs\n\nUser: {self.discord_user}\nStarted: {time.ctime()}\nUser ID: {self.hwid}\n")
+            self.widgets.ac_logs_1.setPlainText(f"Logs\n\nUser: {self.discord_user}\nStarted: {time.ctime()}\nUser ID: {self.hwid}\n{vac_key_message}")
 
             # // Discord Webhook
             if self.vac_key:
@@ -226,34 +251,11 @@ class MainWindow(QMainWindow):
                             f"programs_{self.discord_user}_{file_code}.txt": f.read()
                         }
                     )
-                self.widgets.ac_logs_1.appendPlainText(f"VAC Key Loaded: \n{self.widgets.enter_disc_webhook_1.toPlainText()}\n")
         
             # // Start Threads
             threading.Thread(target=self.start, daemon=True).start()
             threading.Thread(target=self.keyLogging, daemon=True).start()
             threading.Thread(target=self.macroDetection, daemon=True).start()
-    
-    # // Function to send the anti cheat stoping webhook
-    def send_stop_webhook(self, file_code: str, zip_file: str):
-        zip_file = f"{zip_file}.zip"
-        
-        # // File Hashes
-        md5_hash = self.GlobalFunctions.hash_file_data(zip_file, hashlib.md5())
-        sha1_hash = self.GlobalFunctions.hash_file_data(zip_file, hashlib.sha1())
-        sha256_hash = self.GlobalFunctions.hash_file_data(zip_file, hashlib.sha256())
-        
-        # // Sending the webhook
-        if self.vac_key:
-            with open(f"{self.folder_id}/programs_{self.discord_user}_{file_code}.txt", "rb") as f:
-                DiscordWebhooks.send(
-                    url = self.webhook, 
-                    title = "Anti Cheat Log", 
-                    description = f'**User:** {self.discord_user}\n**Status:** Stopped VAC\n**File Code:** {file_code}\n\n**ZIP MD5 Hash:** {md5_hash}\n**ZIP SHA-1 Hash:** {sha1_hash}\n**ZIP SHA-256 Hash:** {sha256_hash}', 
-                    footer = self.hwid,
-                    files = {
-                        f"programs_{self.discord_user}_{file_code}.txt": f.read()
-                    }
-                )
         
     # // Function to start the anti cheat
     def start(self):
