@@ -2,23 +2,21 @@ import requests
 
 class DiscordWebhooks:
     @staticmethod
-    def generate_data(title: str, desc: str, foot: str, thumb: str):
-        return {
+    def send(url: str, title: str="d", description: str="d", footer: str="e", thumbnail="", files=None):
+        # // Send Embed
+        requests.post(url, json={
             "embeds": [
                 {
                     "title": title,
-                    "description": desc,
-                    "footer": {"text": foot},
+                    "description": description,
+                    "footer": {"text": footer},
                     "thumbnail": {
-                        "url": thumb
+                        "url": thumbnail
                     },
                     "color": 16711758
                 }
             ]
-        }
-    
-    @staticmethod
-    def send(url: str, title: str="d", description: str="d", footer: str="e", thumbnail="", files=None):
-        requests.post(url, json=DiscordWebhooks.generate_data(title=title, desc=description, foot=footer, thumb=thumbnail))
+        })
+        # // Send files
         if files is not None:
             requests.post(url, files=files)

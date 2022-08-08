@@ -61,12 +61,13 @@ class GlobalFunctions:
     def create_new_log_files(self, main, log_file: str, file_id: str):
         file_name: str = time.strftime("%Y.%m.%d.%H.%M") + f"_{file_id}"
         try:
-            # // Create new programs.txt file
+            # // Create new file
             with open(log_file,'w') as f:
                 f.write(f'[VAC User/File Information]\n\nUser: {main.discorduser}\nUser ID: {main.hwid}\nFile Code: {file_id}\n\nCreated: {time.ctime(os.path.getctime(log_file))}\nFile Modified: {time.ctime(os.path.getmtime(log_file))}\nCurrent Time: {time.ctime()} | {datetime.now()}\n\n\n[Process List]\n' + '-'*14 + '\n\n' + os.popen(f'wmic process list brief').read() + '\n\n\n[Process Executable Path List]\n' + '-'*31 + '\n\n' + os.popen(f'wmic process get Description,ProcessID,ExecutablePath').read() + '\n\n\n[Process Service List]\n' + '-'*22 + '\n\n' + os.popen(f'wmic service list brief').read())
             
-            # // Lock the programs.txt file
-            os.chmod(log_file, stat.S_IWRITE); os.chmod(log_file, stat.S_IXUSR) 
+            # // Lock the file
+            os.chmod(log_file, stat.S_IWRITE)
+            os.chmod(log_file, stat.S_IXUSR) 
             
             # // Create new Screenshot
             pyautogui.screenshot().save(f"{main.folder_id}/{file_name}.png")
