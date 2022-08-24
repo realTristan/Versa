@@ -1,4 +1,5 @@
-# Versa-Anti-Cheat
+# Versa Anti Cheat ![Stars](https://img.shields.io/github/stars/realTristan/VersaAntiCheat?color=brightgreen) ![Watchers](https://img.shields.io/github/watchers/realTristan/VersaAntiCheat?label=Watchers)
+
 Versa Anti Cheat is an advanced gaming anti cheat that makes your life easier by integrating discord Web Hooks into the program. 
    - The program tracks key and mouse clicks to detect macros and auto clickers. 
    - It takes screenshots and lists all running programs on the users computer and sends them to a discord channel of your choosing!
