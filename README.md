@@ -6,6 +6,7 @@
 - This is one of the first versions of Versa. This codebase is outdated from the actual released versions.
 - Also check out Reborn which is made in Rust for WAY more security.
 
+# About
 Versa Anti Cheat is an advanced gaming anti cheat that makes your life easier by integrating discord Web Hooks into the program. 
    - The program tracks key and mouse clicks to detect macros and auto clickers. 
    - It takes screenshots and lists all running programs on the users computer and sends them to a discord channel of your choosing!
