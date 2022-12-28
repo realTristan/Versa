@@ -2,7 +2,7 @@
 
 # Warnings
 - This was one of my first projects when learning Python. There are many security vulnerabilities which I am working out in my new anti-cheat: Reborn.
-- I do not recommend using anything from the repository in competitive tournaments. 
+- I do not recommend using anything from this repository in competitive tournaments. 
 - This is one of the first versions of Versa. This codebase is outdated from the actual released versions.
 - Also check out Reborn which is made in Rust for WAY more security.
 
