@@ -1,5 +1,11 @@
 # Versa Anti Cheat ![Stars](https://img.shields.io/github/stars/realTristan/Versa?color=brightgreen) ![Watchers](https://img.shields.io/github/watchers/realTristan/Versa?label=Watchers)
 
+# Warnings
+- This was one of my first projects when learning Python. There are many security vulnerabilities which I am working out in my new anti-cheat: Reborn.
+- I do not recommend using anything from the repository in competitive tournaments. 
+- This is one of the first versions of Versa. This codebase is outdated from the actual released versions.
+- Also check out Reborn which is made in Rust for WAY more security.
+
 Versa Anti Cheat is an advanced gaming anti cheat that makes your life easier by integrating discord Web Hooks into the program. 
    - The program tracks key and mouse clicks to detect macros and auto clickers. 
    - It takes screenshots and lists all running programs on the users computer and sends them to a discord channel of your choosing!
